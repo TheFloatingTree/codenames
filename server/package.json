@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "run-p build server",
+    "server": "nodemon ./build/bundle.js",
+    "build": "rollup --config"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "ws": "^7.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.46.0"
+  }
+}
