@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "",
-    "dev-server": "",
-    "dev-client": "",
-    "build": ""
+    "start": "cd server && yarn start",
+    "build": "cd client/ && yarn install && yarn build && cd ../server/ && yarn install && yarn build",
+    "dev": "run-p dev-server dev-client",
+    "dev-server": "cd server && yarn dev",
+    "dev-client": "cd client && yarn dev"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5"

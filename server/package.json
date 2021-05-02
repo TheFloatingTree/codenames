@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "run-p build server",
-    "server": "nodemon ./build/bundle.js",
-    "build": "rollup --config"
+    "start": "node ./build/bundle.js",
+    "build": "rollup --config",
+    "dev": "run-p dev-build dev-server",
+    "dev-server": "nodemon ./build/bundle.js",
+    "dev-build": "rollup --watch --config"
   },
   "dependencies": {
     "express": "^4.17.1",
