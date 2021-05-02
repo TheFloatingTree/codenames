@@ -10,11 +10,11 @@ expressWs(app)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.resolve(getDirname(), '../../app/build')))
+app.use(express.static(path.resolve(getDirname(), '../../client/build')))
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (req, res) {
-    res.sendFile(path.resolve(getDirname(), '../../app/build', 'index.html'))
+    res.sendFile(path.resolve(getDirname(), '../../client/build', 'index.html'))
 })
 
 // app.ws('/', (ws, req) => {

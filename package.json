@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "",
+    "dev-server": "",
+    "dev-client": "",
     "build": ""
   },
   "devDependencies": {
