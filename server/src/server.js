@@ -12,8 +12,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.resolve(getDirname(), '../../client/build')))
 
+app.get('/api/ping', (req, res) => {
+    res.send("pong")
+})
+
 // All remaining requests return the React app, so it can handle routing.
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
     res.sendFile(path.resolve(getDirname(), '../../client/build', 'index.html'))
 })
 
