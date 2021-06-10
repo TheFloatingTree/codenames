@@ -1,12 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect } from 'react'
+import useWebSocket from 'react-use-websocket'
 
 function App() {
+
+  const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:3001/echo')
 
   useEffect(() => {
     fetch('/api/ping').then(res => res.text()).then(console.log)
   }, [])
+
+  useEffect(() => {
+    console.log(readyState)
+  }, [readyState])
 
   return (
     <div className="App">
@@ -23,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => {sendMessage('hello')}}>{ lastMessage?.data }</button>
       </header>
     </div>
   );
