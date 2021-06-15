@@ -1,38 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-import { useEffect } from 'react'
-import useWebSocket from 'react-use-websocket'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { ChakraProvider, theme } from "@chakra-ui/react"
+import Home from './pages/Home'
+import React from 'react';
 
 function App() {
 
-  const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:3001/echo')
+  // const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:3001/echo')
 
-  useEffect(() => {
-    fetch('/api/ping').then(res => res.text()).then(console.log)
-  }, [])
+  // useEffect(() => {
+  //   fetch('/api/ping').then(res => res.text()).then(console.log)
+  // }, [])
 
-  useEffect(() => {
-    console.log(readyState)
-  }, [readyState])
+  // useEffect(() => {
+  //   console.log(readyState)
+  // }, [readyState])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={() => {sendMessage('hello')}}>{ lastMessage?.data }</button>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </Router>
+    </ChakraProvider>
   );
 }
 
