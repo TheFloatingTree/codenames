@@ -2,6 +2,7 @@ import express from 'express'
 import enableWs from 'express-ws'
 import path from 'path'
 import { getDirname } from './util/getDirname.js'
+import words from '../words.json'
 
 const PORT = process.env.PORT || 3001
 
@@ -21,6 +22,21 @@ app.ws('/echo', (ws, req) => {
 
 app.get('/api/ping', (req, res) => {
     res.send("pong")
+})
+
+// gets a board of random words in the form of an array
+app.get('/api/get/words', (req, res) => {
+    let wordlist = [...words.classic_words];
+    let clientWords = [];
+    const NUM_TILES = 25;
+
+    // fill array with words from words JSON
+    for(let i=0 ; i < NUM_TILES ; i++){
+        let randomNum = Math.floor(Math.random()*wordlist.length);
+        clientWords.push(wordlist.splice(randomNum, 1)[0]);
+    }
+    
+    res.send(clientWords);
 })
 
 // All remaining requests return the React app, so it can handle routing.
