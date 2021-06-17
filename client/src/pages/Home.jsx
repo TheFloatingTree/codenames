@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Center, Flex, Grid, Spacer, useColorMode } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import GameTile from '../components/GameTile'
@@ -6,6 +6,15 @@ import GameTile from '../components/GameTile'
 export default function Home() {
 
     const { colorMode, toggleColorMode } = useColorMode()
+    const [words, setWords] = useState([])
+
+    useEffect(() => {
+        fetch('/api/get/words')
+            .then(res => res.json())
+            .then(res => {
+                setWords(res)
+            })
+    }, [])
 
     return (
         <>
@@ -17,31 +26,9 @@ export default function Home() {
             </Flex>
             <Center>
                 <Grid templateColumns="repeat(5, 1fr)" gap="3">
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
-                    <GameTile></GameTile>
+                    {words.map(word => {
+                        return <GameTile word={word} key={word}></GameTile>
+                    })}
                 </Grid>
             </Center>
         </>

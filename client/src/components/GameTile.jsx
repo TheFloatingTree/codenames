@@ -1,7 +1,7 @@
 import React from 'react'
 import { Center, useMediaQuery } from "@chakra-ui/react"
 
-export default function GameTile() {
+export default function GameTile({ word }) {
 
     const [desktop] = useMediaQuery("(min-width: 481px)")
 
@@ -9,7 +9,7 @@ export default function GameTile() {
 
     return (
         <Center w={ boxSize.w } h={ boxSize.h } boxShadow="outline" borderRadius="md">
-            Testing
+            { word }
         </Center>
     )
 }

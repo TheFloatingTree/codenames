@@ -31,11 +31,11 @@ app.get('/api/get/words', (req, res) => {
     const NUM_TILES = 25;
 
     // fill array with words from words JSON
-    for(let i=0 ; i < NUM_TILES ; i++){
-        let randomNum = Math.floor(Math.random()*wordlist.length);
+    for (let i = 0; i < NUM_TILES; i++) {
+        let randomNum = Math.floor(Math.random() * wordlist.length);
         clientWords.push(wordlist.splice(randomNum, 1)[0]);
     }
-    
+
     res.send(clientWords);
 })
 
