@@ -11,9 +11,7 @@ export default function Home() {
     useEffect(() => {
         fetch('/api/get/words')
             .then(res => res.json())
-            .then(res => {
-                setWords(res)
-            })
+            .then(setWords)
     }, [])
 
     return (
@@ -26,8 +24,8 @@ export default function Home() {
             </Flex>
             <Center>
                 <Grid templateColumns="repeat(5, 1fr)" gap="3">
-                    {words.map(word => {
-                        return <GameTile word={word} key={word}></GameTile>
+                    {words.map((word, index) => {
+                        return <GameTile delay={index * 3} word={word} key={word}></GameTile>
                     })}
                 </Grid>
             </Center>
