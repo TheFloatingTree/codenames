@@ -26,9 +26,18 @@ app.get('/api/ping', (req, res) => {
 
 // gets a board of random words in the form of an array
 app.get('/api/get/words', (req, res) => {
-    let wordlist = [...words.classic_words];
-    let clientWords = [];
+    let wordlist = [], clientWords = [];
+    let classic = true, duet = false, undercover = false;
     const NUM_TILES = 25;
+
+    if(classic)
+        wordlist = wordlist.concat([...words.classic_words]);
+
+    if(duet)
+        wordlist = wordlist.concat([...words.duet_words]);
+
+    if(undercover)
+        wordlist = wordlist.concat([...words.undercover_words]);
 
     // fill array with words from words JSON
     for (let i = 0; i < NUM_TILES; i++) {
