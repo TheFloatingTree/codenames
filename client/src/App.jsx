@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ChakraProvider, theme } from "@chakra-ui/react"
 import Home from './pages/Home'
+import Title from './pages/Title'
 import React from 'react';
 
 function App() {
@@ -19,9 +20,8 @@ function App() {
     <ChakraProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/">
-            <Home></Home>
-          </Route>
+          <Route exact path="/" component={Title}></Route>
+          <Route path="/game/:room" component={Home}></Route>
         </Switch>
       </Router>
     </ChakraProvider>
