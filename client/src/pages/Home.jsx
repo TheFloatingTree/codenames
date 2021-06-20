@@ -2,34 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { Button, Center, Flex, Grid, Spacer, useColorMode } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import GameTile from '../components/GameTile'
-import { TILE_BLUE_TEAM, TILE_BOMB, TILE_NO_TEAM, TILE_RED_TEAM } from '../constants'
+import { Player } from '../shared/models'
+import axios from 'axios'
 
-const randomChoice = arr => {
-    const randIndex = Math.floor(Math.random() * arr.length);
-    return arr[randIndex];
-};
 
 export default function Home() {
 
-    const { colorMode, toggleColorMode } = useColorMode()
+    const { toggleColorMode } = useColorMode()
     const [tiles, setTiles] = useState([])
 
     useEffect(() => {
-        fetch('/api/get/words')
-            .then(res => res.json())
-            .then(words => {
-                setTiles(words.map(word => {
-                    return {
-                        word,
-                        type: randomChoice([ TILE_NO_TEAM, TILE_RED_TEAM, TILE_BLUE_TEAM, TILE_BOMB ])
-                    }
-                }))
+        axios.get('/api/get/words')
+            .then(res => {
+                const words = res.data
+                setTiles(words)
             })
     }, [])
 
     return (
         <>
             <Flex>
+                <Button onClick={ () => axios.post('/api/player/join', { gameId: "ckOeSs6Nh74c", player: new Player() }) } >Test Player Join</Button>
                 <Spacer></Spacer>
                 <Button variant="ghost" onClick={toggleColorMode}>
                     <SettingsIcon></SettingsIcon>

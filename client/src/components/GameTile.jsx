@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Center, ScaleFade, useColorModeValue, useMediaQuery } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
-import { TILE_BLUE_TEAM, TILE_BOMB, TILE_NO_TEAM, TILE_RED_TEAM } from '../constants'
+import { TILE_BLUE_TEAM, TILE_BOMB, TILE_NO_TEAM, TILE_RED_TEAM } from '../shared/constants'
 
 const MotionCenter = motion(Center)
 
