@@ -21,7 +21,7 @@ app.use(express.static(path.resolve(getDirname(), '../../client/build')))
 
 // WEBSOCKETS
 
-// @ts-ignore  a
+// @ts-ignore
 app.ws('/game', (ws, req) => {
     ws.on('message', (res) => {
         // res comes through as a string, but the linter thinks it's an object.
