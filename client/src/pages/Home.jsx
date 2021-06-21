@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Center, Flex, Grid, Spacer, useColorMode } from "@chakra-ui/react"
+import { Box, Button, Center, Flex, Grid, Spacer, useColorMode } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import GameTile from '../components/GameTile'
 import { Player } from '../shared/models'
 import axios from 'axios'
+import PlayerList from '../components/PlayerList'
 
 
 export default function Home() {
@@ -28,6 +29,8 @@ export default function Home() {
                     <SettingsIcon></SettingsIcon>
                 </Button>
             </Flex>
+
+            <Center><Box mb={3} fontSize={30}><b> <span>9</span> - <span>8</span> </b></Box></Center>
             <Center>
                 <Grid templateColumns="repeat(5, 1fr)" gap="3">
                     {tiles.map((tile, index) => {
