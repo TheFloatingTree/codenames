@@ -20,7 +20,7 @@ export default function GameTile({ word, delay, type }) {
     const [desktop] = useMediaQuery("(min-width: 769px)")
     const lightMode = useColorModeValue(true, false)
 
-    const boxSize = desktop ? { w: "200px", h: "160px" } : { w: "80px", h: "60px" }
+    const boxSize = desktop ? { w: "190px", h: "152px" } : { w: "76px", h: "57px" }
     const boxColor = typeHidden ? boxColors[TILE_NO_TEAM][+!lightMode] : boxColors[type][+!lightMode]
 
 
