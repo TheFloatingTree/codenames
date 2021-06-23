@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Center, Flex, Grid, Spacer, useColorMode, Text, Switch, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, Center, Flex, Grid, Spacer, useColorMode, Text, Switch, useColorModeValue, VStack } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import GameTile from '../components/GameTile'
 import { Player } from '../shared/models'
 import axios from 'axios'
+import PlayerList from '../components/PlayerList'
 
 export default function Home() {
 
@@ -11,7 +12,8 @@ export default function Home() {
     const [tiles, setTiles] = useState([])
     const [turn, setTurn] = useState("red");
     const redColor = useColorModeValue("red.500", "red.300")
-    const blueColor = useColorModeValue("blue.600", "blue.400")
+    const blueColor = useColorModeValue("blue.500", "blue.400")
+    const greyColor = useColorModeValue("gray.200", "gray.700")
 
     useEffect(() => {
         axios.get('/api/get/words')
@@ -27,6 +29,9 @@ export default function Home() {
     //         return tile;
     //     }));
     // }
+
+    let redplayers = ["Tree", "Llama", "Ander", "Lollifurry"]
+    let blueplayers = ["Aem", "Blue", "Bruhnilla", "Trooper"]
 
     let currentTurn = "";
     let colorScheme = "";
@@ -65,14 +70,19 @@ export default function Home() {
                 </Box>
             </Center>
 
-            {/* GAME BOARD */}
-            <Center>
-                <Grid templateColumns="repeat(5, 1fr)" gap="3">
-                    {tiles.map((tile, index) => {
-                        return <GameTile delay={index * 3} type={tile.type} word={tile.word} key={tile.word}></GameTile>
-                    })}
-                </Grid>
-            </Center>
+            <Grid templateColumns="1fr 2fr 1fr">
+                {/* LEFT SIDEBAR */}
+                <PlayerList redplayers={redplayers} blueplayers={blueplayers} redColor={redColor} blueColor={blueColor} greyColor={greyColor}/>
+
+                {/* GAME BOARD */}
+                <Center>
+                    <Grid templateColumns="repeat(5, 1fr)" gap="3">
+                        {tiles.map((tile, index) => {
+                            return <GameTile delay={index * 3} type={tile.type} word={tile.word} key={tile.word}></GameTile>
+                        })}
+                    </Grid>
+                </Center>
+            </Grid>
                 
             {/* FOOTER */}
             <Center>
