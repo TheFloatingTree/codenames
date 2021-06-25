@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Center, ScaleFade, useColorModeValue, useMediaQuery } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
 import { TILE_BLUE_TEAM, TILE_BOMB, TILE_NO_TEAM, TILE_RED_TEAM } from '../shared/constants'
+import { useDispatch } from 'react-redux'
+import { redPoint, bluePoint } from '../redux/game/gameActions'
 
 const MotionCenter = motion(Center)
 
@@ -23,16 +25,29 @@ export default function GameTile({ word, delay, type }) {
     const boxSize = desktop ? { w: "190px", h: "152px" } : { w: "76px", h: "57px" }
     const boxColor = typeHidden ? boxColors[TILE_NO_TEAM][+!lightMode] : boxColors[type][+!lightMode]
 
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const timer = setTimeout(() => setShouldAppear(true), delay)
         return () => clearTimeout(timer)
     }, [])
 
+    const tileClicked = () =>{
+        if(typeHidden){
+            setTypeHidden(false);
+
+            if(type === TILE_RED_TEAM)
+                dispatch(redPoint())
+
+            if(type === TILE_BLUE_TEAM)
+                dispatch(bluePoint())
+        }
+    }
+
     return (
         <ScaleFade in={shouldAppear} initialScale={0.5}>
             <MotionCenter
-                onClick={() => setTypeHidden(false)}
+                onClick={() => tileClicked()}
                 w={boxSize.w}
                 h={boxSize.h}
                 _hover={{ cursor: "pointer" }}

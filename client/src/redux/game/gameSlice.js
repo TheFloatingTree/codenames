@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    count: 0
+    count: 0,
+    redScore: 9,
+    blueScore: 8
 }
 
 export const makeGameSlice = () => createSlice({
@@ -10,7 +12,15 @@ export const makeGameSlice = () => createSlice({
     reducers: {
         inc: (state, action) => {
             state.count += action.payload
-        }
+        },
+        redPoint: (state) => {
+            if(state.redScore > 0)
+                state.redScore -= 1;
+        },
+        bluePoint: (state) => {
+            if(state.blueScore > 0)
+                state.blueScore -= 1;
+        },
     }
 })
 

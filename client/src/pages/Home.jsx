@@ -1,10 +1,12 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Center, Flex, Grid, Spacer, useColorMode, Text, Switch, useColorModeValue, VStack } from "@chakra-ui/react"
+import { Box, Button, Center, Flex, Grid, Spacer, useColorMode, Text, useColorModeValue, Switch } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import GameTile from '../components/GameTile'
 import { Player } from '../shared/models'
 import axios from 'axios'
 import PlayerList from '../components/PlayerList'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
 
@@ -15,6 +17,9 @@ export default function Home() {
     const blueColor = useColorModeValue("blue.500", "blue.400")
     const greyColor = useColorModeValue("gray.200", "gray.700")
 
+    const redScore = useSelector(state => state.game.redScore)
+    const blueScore = useSelector(state => state.game.blueScore)
+
     useEffect(() => {
         axios.get('/api/get/words')
             .then(res => {
@@ -23,15 +28,16 @@ export default function Home() {
             })
     }, [])
 
-    // const spymasterOn = () => {
-    //     setTiles(tiles.map((tile) =>{
-    //         console.log(tile);
-    //         return tile;
-    //     }));
-    // }
+    const spymasterOn = (event) => {
+        // console.log(event);
+        // setTiles(tiles.map((tile) =>{
+            
+        //     return tile;
+        // }));
+    }
 
-    let redplayers = ["Tree", "Llama", "Ander", "Lollifurry"]
-    let blueplayers = ["Aem", "Blue", "Bruhnilla", "Trooper"]
+    let redplayers = ["Tree", "Llama", "Ander", "Lollifurry"];
+    let blueplayers = ["Aem", "Blue", "Bruhnilla", "Trooper"];
 
     let currentTurn = "";
     let colorScheme = "";
@@ -55,9 +61,9 @@ export default function Home() {
                     <Flex>
                         <Box w="200px" fontSize="30px" as="b"> 
                             <Flex>
-                                <Text color={redColor}>9</Text>
+                                <Text color={redColor}>{redScore} </Text>
                                 <Text>&nbsp;-&nbsp;</Text>
-                                <Text color={blueColor}>8</Text>
+                                <Text color={blueColor}>{blueScore}</Text>
                             </Flex>
                         </Box>  <Spacer />
                         <Box> 
@@ -91,7 +97,7 @@ export default function Home() {
                         <Box w="200px">
                             <Text fontSize="18px" as="b"> Spymaster </Text> 
                             {/* <Button onClick={spymasterOn}>SPYMASTER ON</Button> */}
-                            <Switch size='lg' colorScheme="teal"></Switch>
+                            <Switch size='lg' colorScheme="teal"  onChange={(event) => spymasterOn(event.target.value)}></Switch>
                         </Box>
                         <Spacer />
                         <Box w="400px" textAlign="right"> 
