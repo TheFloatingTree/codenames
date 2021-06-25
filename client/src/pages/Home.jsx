@@ -6,19 +6,23 @@ import GameTile from '../components/GameTile'
 import { Player } from '../shared/models'
 import axios from 'axios'
 import PlayerList from '../components/PlayerList'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch  } from 'react-redux'
+import { changeTurns } from '../redux/game/gameActions'
 
 export default function Home() {
 
     const { toggleColorMode } = useColorMode()
     const [tiles, setTiles] = useState([])
-    const [turn, setTurn] = useState("red");
     const redColor = useColorModeValue("red.500", "red.300")
     const blueColor = useColorModeValue("blue.500", "blue.400")
     const greyColor = useColorModeValue("gray.200", "gray.700")
 
     const redScore = useSelector(state => state.game.redScore)
     const blueScore = useSelector(state => state.game.blueScore)
+    const gameWon = useSelector(state => state.game.gameWon)
+    const redWon = useSelector(state => state.game.redWon)
+    const turn = useSelector(state => state.game.turn);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         axios.get('/api/get/words')
@@ -36,12 +40,20 @@ export default function Home() {
         // }));
     }
 
+    /* Renders "[Team]'s Turn" and "[Team] Wins!" */
+    const renderTopText = () => {
+        if(gameWon)
+            return <Text color={(redWon)?(redColor):(blueColor)} fontSize="30px" as="b">{(redWon)?("Red Wins!"):("Blue Wins!")}</Text>
+    
+        else
+            return <Text color={(turn === "red")?(redColor):(blueColor)} fontSize="30px" as="b">{(turn === "red")?("Red's Turn"):("Blue's Turn")}</Text>
+        
+    }
+
     let redplayers = ["Tree", "Llama", "Ander", "Lollifurry"];
     let blueplayers = ["Aem", "Blue", "Bruhnilla", "Trooper"];
 
-    let currentTurn = "";
     let colorScheme = "";
-    (turn === "red")?(currentTurn = "Red's Turn"):(currentTurn = "Blue's Turn");
     (turn === "red")?(colorScheme = "red"):(colorScheme = "blue");
 
     return (
@@ -67,10 +79,10 @@ export default function Home() {
                             </Flex>
                         </Box>  <Spacer />
                         <Box> 
-                            <Text color={(turn === "red")?(redColor):(blueColor)} fontSize="30px" as="b" > {currentTurn}</Text>
+                            {renderTopText()}
                         </Box>  <Spacer />
                         <Box w="200px" textAlign="right"> 
-                            <Button w="100px" colorScheme={colorScheme} onClick={() => setTurn((turn === "red")?("blue"):("red"))}> End Turn </Button> 
+                            <Button w="100px" colorScheme={colorScheme} onClick={() => dispatch(changeTurns())}> End Turn </Button> 
                         </Box>
                     </Flex>
                 </Box>
