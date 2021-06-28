@@ -6,7 +6,7 @@ export default function PlayerList({ redplayers, blueplayers, redColor, blueColo
     return (
         <Box display="flex" justifyContent="center" >
         <Center>
-            <Box w="350px" minH="400px" bgColor={greyColor} rounded="lg" flexGrow="inherit" >
+            <Box w="350px" minH="350px" bgColor={greyColor} rounded="lg" flexGrow="inherit" >
                 <Grid templateColumns="repeat(2, 1fr)" mt="15px" mb="15px">
                     <Flex justifyContent="center">
                         <VStack spacing="10px">
