@@ -12,6 +12,8 @@ import { changeTurns, resetGame, setClassic, setDuet, setUndercover } from '../r
 export default function Home() {
 
     const { toggleColorMode } = useColorMode()
+    const [spymasterOn, setSpymasterOn] = useState(false);
+
     const [tiles, setTiles] = useState([])
     const redColor = useColorModeValue("red.500", "red.300")
     const blueColor = useColorModeValue("blue.500", "blue.400")
@@ -46,13 +48,6 @@ export default function Home() {
         })
     }
 
-    const spymasterOn = (event) => {
-        // setTiles(tiles.map((tile) =>{
-        //     tile.word = "";            
-        //     return tile;
-        // }));
-    }
-
     /* Renders "[Team]'s Turn" and "[Team] Wins!" */
     const renderTopText = () => {
         if(gameWon)
@@ -62,8 +57,6 @@ export default function Home() {
             return <Text color={(turn === "red") ? redColor : blueColor} fontSize="30px" as="b">{(turn === "red") ? "Red's Turn" : "Blue's Turn"}</Text>
         
     }
-
-    
 
     let redplayers = ["Tree", "Llama", "Ander", "Loller"];
     let blueplayers = ["Aem", "Blue", "Pieckomode", "Trooper"];
@@ -129,7 +122,7 @@ export default function Home() {
                 <Center>
                     <Grid templateColumns="repeat(5, 1fr)" gap="3">
                         {tiles.map((tile, index) => {
-                            return <GameTile delay={index * 3} type={tile.type} word={tile.word} key={tile.word}></GameTile>
+                            return <GameTile delay={index * 3} type={tile.type} word={tile.word} key={tile.word} spymasterOn={spymasterOn}></GameTile>
                         })}
                     </Grid>
                 </Center>
@@ -142,7 +135,7 @@ export default function Home() {
                         <Box w="200px">
                             <Text fontSize="18px" as="b"> Spymaster </Text> 
                             {/* <Button onClick={spymasterOn}>SPYMASTER ON</Button> */}
-                            <Switch size='lg' colorScheme="teal"  onChange={(event) => spymasterOn(event.target.value)}></Switch>
+                            <Switch size='lg' colorScheme="teal"  onChange={(event) => setSpymasterOn(!spymasterOn)}></Switch>
                         </Box>
                         <Spacer />
                         <Box w="400px" textAlign="right"> 
