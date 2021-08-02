@@ -46,7 +46,8 @@ export const makeGameSlice = () => createSlice({
             (state.turn === "red") ? state.blueWon = true : state.redWon = true;
         },
         changeTurns: (state) => {
-            (state.turn === "red") ? state.turn = "blue" : state.turn = "red";
+            if(!state.gameWon)
+                (state.turn === "red") ? state.turn = "blue" : state.turn = "red";
         },
         resetGame: (state) => {
             state.redScore = 9;

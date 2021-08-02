@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { TILE_BLUE_TEAM, TILE_BOMB, TILE_NO_TEAM, TILE_RED_TEAM, TILE_UNCLICKED } from '../shared/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { redPoint, bluePoint, bombPressed, changeTurns } from '../redux/game/gameActions'
+import '../styles.css'
 
 const MotionCenter = motion(Center)
 
@@ -46,7 +47,7 @@ export default function GameTile({ word, delay, type, spymasterOn }) {
     }, [])
 
     const tileClicked = () =>{
-        if(typeHidden && !gameWon){
+        if(!gameWon && !spymasterOn && typeHidden){
             setTypeHidden(false);
 
             if(type === TILE_RED_TEAM)
@@ -66,6 +67,7 @@ export default function GameTile({ word, delay, type, spymasterOn }) {
     return (
         <ScaleFade in={shouldAppear} initialScale={0.5}>
             <MotionCenter
+                className="gameTile"
                 onClick={() => tileClicked()}
                 w={boxSize.w}
                 h={boxSize.h}

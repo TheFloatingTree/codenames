@@ -32,18 +32,18 @@ export default function Title() {
         <Flex direction="column" background={formBackground} p={12} rounded={6} w={400}>
           <Heading mb={6} textAlign="center">Codenames</Heading>
           <span style={{fontSize: "14px"}}>Screen Name</span>
-          <Input placeholder="Screen Name" borderColor="gray.500" varient="filled" mb={2} type="text" onChange={(event) => setName(event.target.value)}/>
+          <Input placeholder="Screen Name" borderColor="gray.500" varient="filled" mb={1} type="text" onChange={(event) => setName(event.target.value)}/>
           <span style={{fontSize: "14px"}}>Room Name</span>
-          <Input placeholder="Room Name" borderColor="gray.500" varient="filled" mb={2} type="text" onChange={(event) => setRoom(event.target.value)}/>
+          <Input placeholder="Room Name" borderColor="gray.500" varient="filled" mb={1} type="text" onChange={(event) => setRoom(event.target.value)}/>
           <span style={{fontSize: "14px"}}>Password</span>
-          <Input placeholder="Password" borderColor="gray.500" varient="filled" mb={2} type="text" onChange={(event) => setPassword(event.target.value)}/>
+          <Input placeholder="Password" borderColor="gray.500" varient="filled" mb={1} type="text" onChange={(event) => setPassword(event.target.value)}/>
 
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/game/${room.toLowerCase()}`}>
             <Button colorScheme="green" mt={5} w={304}>Create New Game</Button>
           </Link>
           
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/game/${room.toLowerCase()}`}>
-            <Button colorScheme="teal" mt={5} w={304}>Join Game</Button>
+            <Button colorScheme="teal" mt={4} w={304}>Join Game</Button>
           </Link>
         </Flex>
       </Flex>

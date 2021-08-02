@@ -1,0 +1,7 @@
+.gameTile{
+    transition: 0.3s
+}
+
+.endTurn{
+    transition: 1s
+}
